@@ -4,14 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospitality Pro | A1-A2 Service English</title>
-    <link rel="stylesheet" href="css/variables.css">
+    <title>A1 English for Hospitality & Services | Inserción Laboral</title>
+    <meta name="description" content="A1 CEFR English course for hospitality, restaurants, food trucks, hotel services, and cleaning. Listening and speaking focus for job insertion.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
-        rel="stylesheet">
-    <meta name="description"
-        content="Professional English training for hospitality, food trucks, bars, and cleaning services. A1-A2 CEFR level.">
 </head>
 
 <body>
@@ -19,107 +15,148 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Hospitality<span>Pro</span></div>
-                <div class="nav-controls">
-                    <div class="nav-group">
-                        <span style="font-weight: 700; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-right: 15px;">Elite Program</span>
-                        <a href="manual.html" class="btn btn-nav" style="font-size: 0.75rem;">📖 Manual</a>
-                        <a href="resources.html" class="btn btn-nav" style="font-size: 0.75rem;">📚 Resources</a>
-                    </div>
-                    <span class="divider"></span>
-                    <div class="nav-group">
-                        <button class="btn btn-nav" onclick="navigateUnit(-1)" title="Previous Unit">◀️</button>
-                        <button class="btn btn-nav" onclick="navigateUnit(1)" title="Next Unit">▶️</button>
-                        <button id="pause-audio-btn" class="btn btn-nav" onclick="togglePauseAudio()"
-                            title="Pause/Resume Audio">⏸️</button>
-                    </div>
+                <div class="logo">A1 English<span> Services</span></div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                    <a href="manual.html" class="btn nav-btn" style="padding:8px 14px;font-size:0.85rem;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.5);color:#25D366;text-decoration:none;">📖 Manual</a>
+                    <button id="prev-unit-btn" class="btn nav-btn" onclick="navigateUnit(-1)"
+                        style="padding: 8px 14px; font-size: 0.85rem;">◀ Prev</button>
+                    <button id="next-unit-btn" class="btn nav-btn" onclick="navigateUnit(1)"
+                        style="padding: 8px 14px; font-size: 0.85rem;">Next ▶</button>
+                    <span style="width:1px;height:24px;background:rgba(255,255,255,0.3);margin:0 4px;"></span>
+                    <button id="pause-audio-btn" class="btn pause-audio-btn" onclick="togglePauseAudio()"
+                        style="padding: 8px 14px; font-size: 0.85rem;">⏸️ Pause</button>
+                    <button class="btn stop-audio-btn" onclick="stopAudio()"
+                        style="padding: 8px 14px; font-size: 0.85rem;">⏹️ Stop</button>
                 </div>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="container">
-            <!-- Dashboard (Always Visible) -->
-            <div id="course-dashboard" style="margin: 30px 0;" class="animate__animated animate__fadeIn">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
-                    <div>
-                        <h2 style="font-size: 1.8rem; color: var(--accent);">Curriculum Dashboard</h2>
-                        <p style="color: var(--text-secondary);">Hospitality Excellence Program (12 Modules)</p>
+    <div class="container admin-controls">
+        <!-- Attendance Control -->
+        <details class="attendance-block">
+            <summary class="attendance-header">📅 Attendance Control</summary>
+            <div class="attendance-content">
+                <div class="attendance-form">
+                    <div class="form-group">
+                        <label for="att-date">Select Date:</label>
+                        <input type="date" id="att-date" class="att-input">
                     </div>
-                    <div style="text-align: right;">
-                        <span id="overall-progress" class="badge">0% Complete</span>
+                    <div class="form-group">
+                        <label for="att-user">Select Student:</label>
+                        <select id="att-user" class="att-input">
+                            <option value="Student 1">Student 1</option>
+                            <option value="Student 2">Student 2</option>
+                        </select>
                     </div>
+                    <button class="btn att-save-btn" onclick="saveAttendance()">Mark Present ✅</button>
                 </div>
-                <div style="height: 10px; background: #E2E8F0; border-radius: 5px; overflow: hidden;">
-                    <div id="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-teal); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                <div id="attendance-list" class="attendance-list"></div>
+            </div>
+        </details>
+
+        <!-- Payments Management -->
+        <details class="payments-block">
+            <summary class="payments-header">💳 Payments Management</summary>
+            <div class="payments-content">
+                <div class="payments-form">
+                    <div class="form-group">
+                        <label for="pay-date">Date:</label>
+                        <input type="date" id="pay-date" class="pay-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="pay-user">Student:</label>
+                        <select id="pay-user" class="pay-input">
+                            <option value="Student 1">Student 1</option>
+                            <option value="Student 2">Student 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pay-concept">Concept:</label>
+                        <input type="text" id="pay-concept" class="pay-input" placeholder="e.g. Class 1" value="Class 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="pay-amount">Amount ($):</label>
+                        <input type="number" id="pay-amount" class="pay-input" placeholder="0.00">
+                    </div>
+                    <button class="btn pay-save-btn" onclick="savePayment()">Record Payment</button>
                 </div>
+                <div id="payments-list" class="payments-list"></div>
             </div>
+        </details>
+    </div>
 
-            <!-- Diagnostic Hub (Hidden) -->
-            <div id="diagnostic-hub" class="hero-card animate__animated animate__fadeIn" style="display: none;">
-                <span class="badge">Placement Assessment</span>
-                <h1>Master Global Service</h1>
-                <p>Welcome to your professional training. Complete the placement test to unlock your 12-module journey.</p>
-                <button class="btn btn-primary" onclick="startDiagnostic()">
-                    Begin Assessment 📝
-                </button>
-            </div>
-
-            <!-- Diagnostic Test -->
-            <div id="diagnostic-test" style="display: none;" class="card animate__animated animate__fadeIn">
-                <h3>Level Diagnostic</h3>
-                <div id="diagnostic-questions"></div>
-                <button class="btn btn-primary btn-full" style="margin-top:20px;" onclick="submitDiagnostic()">
-                    Submit Results 📝
-                </button>
-            </div>
-
-            <!-- Result -->
-            <div id="diagnostic-result" class="result-card animate__animated animate__bounceIn" style="display: none;">
-                <h3 id="result-level-text"></h3>
-                <p id="result-description" style="margin: 15px 0;"></p>
-                <button class="btn btn-primary" onclick="closeDiagnostic()">
-                    Start Training 🚀
-                </button>
-            </div>
-
-            <!-- Main Content (Shown) -->
-            <div id="main-content">
-                <div id="curriculum-container" class="curriculum-grid"></div>
-            </div>
-
+    <div class="container" id="main-content">
+        <div class="unit-list" id="curriculum-container">
+            <!-- Content injected via script.js -->
         </div>
-    </main>
+    </div>
 
-    <section class="about-section">
-        <div class="container">
-            <details class="accordion">
-                <summary class="accordion-header">👩‍🏫 About the Course (Sobre el Curso)</summary>
-                <div class="accordion-body">
-                    <div class="instructor-card">
-                        <div class="avatar">CC</div>
-                        <div>
-                            <h3>Cecilia Chiappero</h3>
-                            <p class="subtitle">English Language Researcher & Educator</p>
-                        </div>
+    <!-- About the Author -->
+    <div class="container" id="author-section">
+        <details class="author-block">
+            <summary class="author-header">👩‍🏫 About the Author</summary>
+            <div class="author-content">
+                <div class="author-profile">
+                    <div class="author-avatar">CC</div>
+                    <div class="author-info">
+                        <h3>Cecilia Chiappero</h3>
+                        <p class="author-title">English Language Educator & Researcher | Universidad Nacional de Córdoba</p>
                     </div>
-                    <p>This 8-unit course is specifically designed for the service industry: Hotels, Cleaning Services,
-                        Bars, Food Trucks, and Restaurants. Aligned with CEFR A1-A2 standards, it focuses on real-world
-                        listening and speaking skills for non-academic environments.</p>
                 </div>
-            </details>
+                <div class="author-bio">
+                    <p>Cecilia Chiappero is an English language educator and researcher affiliated with the
+                        <strong>Universidad Nacional de Córdoba</strong>, Argentina. Her academic work focuses on
+                        innovative teaching methodologies and technology-enhanced language learning for vocational insertion.</p>
+                    <p>This A1 English for Hospitality & Services course is specifically designed for <strong>job insertion</strong>
+                        in the restaurant, food truck, hotel, and cleaning sectors, aligned with the
+                        <strong>CEFR A1 framework</strong> with a strong focus on listening and speaking.</p>
+                    <p class="author-contact"><strong>Research Profile:</strong> Available on <a
+                            href="https://www.researchgate.net" target="_blank"
+                            style="color: var(--accent-gold);">ResearchGate</a> and academic databases.</p>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- References -->
+    <div class="container" id="references-section">
+        <details class="references-block">
+            <summary class="references-header">📚 References (APA Style)</summary>
+            <div class="references-content">
+                <p class="references-author"><strong>Course Author:</strong> Chiappero, C. (2025). <em>A1 English for
+                    Hospitality & Services: Restaurant, Food Trucks, Hotels, and Cleaning</em>. Original educational material.</p>
+                <h4>Framework & Language References</h4>
+                <ul class="references-list">
+                    <li>Council of Europe. (2020). <em>Common European Framework of Reference for Languages (CEFR)</em>. Council of Europe Publishing.</li>
+                    <li>Nation, I. S. P. (2001). <em>Learning vocabulary in another language</em>. Cambridge University Press.</li>
+                    <li>Harmer, J. (2015). <em>The Practice of English Language Teaching</em> (5th ed.). Pearson Education.</li>
+                    <li>Thornbury, S. (2005). <em>How to Teach Speaking</em>. Pearson Education.</li>
+                </ul>
+                <p class="references-disclaimer"><em>All content created for educational purposes. Aligned with CEFR A1 standards for vocational English.</em></p>
+            </div>
+        </details>
+    </div>
+
+    <!-- Protection Overlay -->
+    <div id="protection-overlay" class="protection-overlay" style="display: none;">
+        <div class="protection-message">
+            <span class="protection-icon">🔒</span>
+            <h2>Protected Content</h2>
+            <p>No permission to copy, download, or redistribute this material.</p>
+            <p class="protection-copyright">© 2025 A1 English for Services - Cecilia Chiappero</p>
+            <p class="protection-note">All rights reserved. For authorized students only.</p>
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
-            <p>© 2026 Hospitality Pro Course. Designed for Excellence.</p>
-            <p class="small">Clear American Pronunciation Engine Enabled.</p>
+            <p>© 2025 A1 English for Hospitality & Services. Created by Cecilia Chiappero.</p>
         </div>
     </footer>
 
-    <script src="js/data.js"></script>
+    <script src="js/data_units1to4.js"></script>
+    <script src="js/data_units5to8.js"></script>
     <script src="js/script.js"></script>
 </body>
 
